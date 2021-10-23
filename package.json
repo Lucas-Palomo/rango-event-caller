@@ -1,0 +1,27 @@
+{
+  "name": "rango-event-caller",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lucas-Palomo/rango-event-caller"
+  },
+  "version": "1.0.70",
+  "description": "A Typescript library for working with Rango Framework",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [],
+  "author": "Lucas Palomo",
+  "license": "GNU GENERAL PUBLIC LICENSE V3",
+  "type": "module",
+  "devDependencies": {
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "scripts": {
+    "build": "npx tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "compile": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "callsites": "^4.0.0"
+  }
+}
