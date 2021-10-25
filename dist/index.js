@@ -31,12 +31,6 @@ export function invoke(classObject, functionName = "init", argument = undefined)
     process.argv[2] = proc.functionName;
     process.argv[3] = proc.argument;
 }
-class Animal extends EventCaller {
-    l(f) {
-        console.log("l => ", f);
-    }
-}
-invoke(Object(Animal), "l", { d: 1 });
 // TODO
 // Document Invoke function
 //# sourceMappingURL=index.js.map
