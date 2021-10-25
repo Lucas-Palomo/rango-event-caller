@@ -1,8 +1,8 @@
 export declare class EventCaller {
-    private readonly callSite;
     private readonly caller;
-    private readonly invoke;
-    private readonly args;
+    private readonly function;
+    private readonly argument;
     constructor();
-    default(): void;
+    init(): void;
 }
+export declare function invoke(classObject: ObjectConstructor, functionName?: string, argument?: any): void;

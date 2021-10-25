@@ -1,34 +1,42 @@
-import { default as callSites } from 'callsites';
 export class EventCaller {
-    callSite = undefined;
-    caller = null;
-    invoke = "default";
-    args = undefined;
+    caller = undefined;
+    function = "init";
+    argument = undefined;
     constructor() {
-        console.log("EventCaller");
-        const oldLimit = Error.stackTraceLimit;
-        Error.stackTraceLimit = 2;
-        this.callSite = callSites().pop();
-        Error.stackTraceLimit = oldLimit;
-        if (this.callSite) {
-            this.caller = this.callSite.getTypeName();
-            this.invoke = process.argv[2] === undefined ? this.invoke : process.argv[2];
-            this.args = process.argv[3] === undefined ? this.args : JSON.parse(process.argv[3]);
+        this.caller = this["constructor"].name;
+        this.function = process.argv[2] === undefined ? this.function : process.argv[2];
+        this.argument = process.argv[3] === undefined ? this.argument : JSON.parse(process.argv[3]);
+        // @ts-ignore
+        this.function = typeof this[this.function] === "function" ? this.function : "init";
+        if (this.function) {
+            // @ts-ignore
+            this[this.function](this.argument);
         }
-        if (this.invoke && this.caller) {
-            if (this.args) {
-                // @ts-ignore
-                this[this.invoke](this.args);
-            }
-            else {
-                // @ts-ignore
-                this[this.invoke]();
-            }
-        }
-        process.exit(1);
     }
-    default() {
+    init() {
         console.log(`${this.caller} Works !`);
     }
 }
+export function invoke(classObject, functionName = "init", argument = undefined) {
+    const proc = {
+        functionName: process.argv[2],
+        argument: process.argv[3]
+    };
+    process.argv[2] = functionName;
+    process.argv[3] = JSON.stringify(argument);
+    // @ts-ignore
+    if (classObject["constructor"] == EventCaller["constructor"] && typeof classObject.prototype[functionName] === "function") {
+        new classObject();
+    }
+    process.argv[2] = proc.functionName;
+    process.argv[3] = proc.argument;
+}
+class Animal extends EventCaller {
+    l(f) {
+        console.log("l => ", f);
+    }
+}
+invoke(Object(Animal), "l", { d: 1 });
+// TODO
+// Document Invoke function
 //# sourceMappingURL=index.js.map
