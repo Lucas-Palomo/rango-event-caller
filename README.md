@@ -1,14 +1,12 @@
 # Event Caller
 
-## A Typescript library for working with Rango Framework
-
-###### The Rango project is an unfinished web framework, its repository will remain private until a stable version is available
+## A Typescript library for invoking functions of a class
 
 ---
 
 ### What's the Event Caller ?
 
-Is a class that enable call functions by CLI
+It is a class that allows the invocation of functions from another class via the command line.
 
 ### How  to use the Event Caller ?
 
@@ -16,7 +14,7 @@ Is a class that enable call functions by CLI
 
 ##### First Example
 
-> This examples uses a file named *main.ts*
+> This examples uses a file named *main.ts* 
 
 ```typescript
 import {EventCaller} from "rango-event-caller";
@@ -39,7 +37,7 @@ node ./main.js
 "Test Works !"
 ```
 
-when you run without passing arguments, the function **default** is called.
+when you run without passing arguments, the function **init** is called.
 
 
 
@@ -50,8 +48,8 @@ import {EventCaller} from "rango-event-caller";
 
 class Test extends EventCaller {
     
-    default(): void {
-        console.log("Override default function")
+    init(): void {
+        console.log("Override init function")
     }
 }
 
@@ -67,7 +65,7 @@ node ./main.js
 **output**
 
 ```bash
-"Override default function"
+"Override init function"
 ```
 
 
@@ -106,7 +104,7 @@ node ./main.js hello
 
 ##### Second Example
 
-invoking another function and passing arguments
+invoking another function and passing arguments 
 
 ```typescript
 import {EventCaller} from "rango-event-caller";
@@ -128,12 +126,12 @@ new Test();
 node ./main.js hello "'World'"
 ```
 
-By default, you must pass a single argument.
+By default, you must pass a single argument. 
 
-- It must be:
-    -  string
-    - number
-    - string object ( see JSON.stringify ).
+- The argument must be of any type natively supported by Typscript.
+
+- You can also pass String objects ( see JSON.stringify ).
+
 - Automatically the argument is converted into a javascript object
 
 **output**
@@ -141,4 +139,54 @@ By default, you must pass a single argument.
 ```bash
 "Hello World!"
 ```
+
+----
+
+#### Invoke Feature
+
+That is a small feature to work with Event Caller.
+
+```typescript
+invoke(Object(Class), functionName, argument) // <= Invoke Function
+```
+
+The invoke function has three arguments:
+
+- Class
+- Function Name
+  - default is "init"
+- Argument
+  - default is "undefined"
+
+```typescript
+import {EventCaller, invoke} from "rango-event-caller";
+
+class Test extends EventCaller {
+    
+    doubleFunc(arg: number): void {
+        console.log(`Result is ${arg*2}`)
+    }
+    
+}
+
+invoke(Object(Test));
+invoke(Object(Test), "doubleFunc", 2); 
+```
+
+**output**
+
+```bash
+"Test Works !"
+"Result is 4"
+```
+
+----
+
+---
+
+#### What the hell is ***Rango***
+
+Rango is my personal project, It is a web framework ! The event caller is a part of the Rango core, it allows you to invoke functions of a main class dynamically.
+
+###### The Rango project is an unfinished web framework, its repository will remain private until a stable version is available
 
