@@ -217,7 +217,7 @@ In browsers the only way to invoke functions dynamically is through the **invoke
 For browsers, command line instructions are replaced by session storage. The **invoke** function stores information about the function name and argument.
 
 
-#### Limitations on Invoke
+##### Limitations on Invoke
 
 Each **invoke** is a new instance. This limitation occurs because the event caller is designed to handle functions of a class and not to handle functions of an instance.
 
