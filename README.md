@@ -1,16 +1,16 @@
 # Event Caller
 
-## A Typescript library for invoking functions of a class
+## A Typescript library for dynamically invoking the functions of a class
 
 ---
 
 ### What's the Event Caller ?
 
-It is a class that allows the invocation of functions from another class via the command line.
+It is a class that allows the invocation of functions from another class via the command line, it also works in browsers.
 
 ### How  to use the Event Caller ?
 
-#### Basics
+#### Basic Concepts
 
 ##### First Example
 
@@ -19,8 +19,7 @@ It is a class that allows the invocation of functions from another class via the
 ```typescript
 import {EventCaller} from "rango-event-caller";
 
-class Test extends EventCaller {
-}
+class Test extends EventCaller {}
 
 new Test();
 ```
@@ -144,7 +143,7 @@ By default, you must pass a single argument.
 
 #### Invoke Feature
 
-That is a small feature to work with Event Caller.
+This is a small and powerful feature to handle functions with Event Caller.
 
 ```typescript
 invoke(Object(Class), functionName, argument) // <= Invoke Function
@@ -163,26 +162,67 @@ import {EventCaller, invoke} from "rango-event-caller";
 
 class Test extends EventCaller {
     
-    doubleFunc(arg: number): void {
-        console.log(`Result is ${arg*2}`)
+    myName(name: string): void {
+        console.log(`My name is ${name}`);
     }
     
 }
 
 invoke(Object(Test));
-invoke(Object(Test), "doubleFunc", 2); 
+invoke(Object(Test), "myName", "Lucas"); 
 ```
 
 **output**
 
 ```bash
 "Test Works !"
-"Result is 4"
+"My name is Lucas"
 ```
 
 ----
 
----
+##### Another Example
+
+The invoke function allows returns
+
+```typescript
+import {EventCaller, invoke} from "rango-event-caller";
+
+class Test extends EventCaller {
+    
+    doubleFunc(arg: number): number {
+       return arg * 2;
+    }
+    
+}
+
+let result: number = invoke(Object(Test), "doubleFunc", 2); 
+console.log(result)
+```
+
+**output**
+
+```bash
+4
+```
+
+----
+
+#### Limitations
+
+##### Limitations on Browsers
+
+In browsers the only way to invoke functions dynamically is through the **invoke** function, this is obvious because javascript in the browser has no command line arguments.
+
+For browsers, command line instructions are replaced by session storage. The **invoke** function stores information about the function name and argument.
+
+
+#### Limitations on Invoke
+
+Each **invoke** is a new instance. This limitation occurs because the event caller is designed to handle functions of a class and not to handle functions of an instance.
+
+
+----
 
 #### What the hell is ***Rango***
 
